@@ -1,0 +1,61 @@
+﻿@model ProjectTesting.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Product</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="productName" class="control-label"></label>
+                <input asp-for="productName" class="form-control" />
+                <span asp-validation-for="productName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="productDesc" class="control-label"></label>
+                <input asp-for="productDesc" class="form-control" />
+                <span asp-validation-for="productDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="categoryId" class="control-label"></label>
+                <select asp-for="categoryId" class ="form-control" asp-items="ViewBag.categoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="productPrice" class="control-label"></label>
+                <input asp-for="productPrice" class="form-control" />
+                <span asp-validation-for="productPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Quantity</label>
+                <input type="text" name="quantity" id="quantity"  class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Re-Order Level</label>
+                <input type="text" name="reOrderLevel" id="reOrderLevel"  class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="imageURL" class="control-label"></label>
+                <input asp-for="imageURL" class="form-control" type="file"/>
+                <span asp-validation-for="imageURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-outline-success" />
+            </div>
+        </form>
+    </div>
+</div>
+<div style="text-align:center">
+     <h5>@ViewBag.message</h5>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-primary btn-sm">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

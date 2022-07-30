@@ -1,0 +1,67 @@
+﻿@model ProjectTesting.Models.Inventory
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    var url = '@Url.Action("EditProducts")';//method-GetProducts
+    var product = $("#productId");//when change categoryId - productId should change
+    product.empty();
+    product.append($('<option></option>').text("Select").val(0));
+    $("#categoryId").change(function() {//change in categoryId
+        var categoryId = $(this).val();
+        $.getJSON(url, { sid: categoryId }, function(response) {//getJSON- gets data from server - categoryId || categoryId is input captured in the sid
+            product.empty();
+            product.append($('<option></option>').text("Select").val(0));
+            $.each(response, function(k, v) {
+                product.append($('<option></option>').text(v.text).val(v.id));//change in response different products will be shown.
+            });
+        });
+    });
+});
+</script>
+
+<h1>Edit Inventory</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <label asp-for="quantity" class="control-label"></label>
+                <input asp-for="quantity" class="form-control" />
+                <span asp-validation-for="quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="reOrderLevel" class="control-label"></label>
+                <input asp-for="reOrderLevel" class="form-control" />
+                <span asp-validation-for="reOrderLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="categoryId" class="control-label"></label>
+                <select asp-for="categoryId" class="form-control" asp-items="ViewBag.categoryId"><option>Select</option></select>
+                <span asp-validation-for="categoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="productId" class="control-label"></label>
+                <select asp-for="productId" class="form-control" asp-items="ViewBag.productId"><option>Select</option></select>
+                <span asp-validation-for="productId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-outline-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary btn-sm">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

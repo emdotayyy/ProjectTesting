@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProjectTesting.Models.Inventory>
+
+@{
+    ViewData["Title"] = "Inventories";
+}
+
+<h1>Inventory List</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-secondary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.reOrderLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.category.categoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.product.productName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reOrderLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.category.categoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.product.productName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-outline-primary">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.id" class="btn btn-outline-info">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-outline-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

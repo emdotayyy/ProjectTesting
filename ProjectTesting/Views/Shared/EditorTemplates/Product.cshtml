@@ -1,0 +1,18 @@
+﻿@model ProjectTesting.Models.Product
+
+<hr />
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-4">
+            @*<input asp-for="productName" disabled type="text"/>
+            <br />
+            <span asp-validation-for="productName" class="text-danger"></span>*@
+            @Html.HiddenFor(e=>e.id)
+            @Html.HiddenFor(e=>e.categoryId)
+            @Html.HiddenFor(e=>e.productPrice)
+            @Html.CheckBoxFor(e=>e.check)
+            <input type="number" name="qty"/>
+             <span asp-validation-for="check" class="text-danger"></span>
+        </div>
+    </div>
+</div>
