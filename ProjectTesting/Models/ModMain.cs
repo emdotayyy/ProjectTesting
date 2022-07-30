@@ -3,12 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjectTesting.Models
 {
+   
     public class Category
     {
         public int id { get; set; }
         [Display(Name = "Category Name")]
         public string categoryName { get; set; }
     }
+    
     public class Product
     {
         public int id { get; set; }
