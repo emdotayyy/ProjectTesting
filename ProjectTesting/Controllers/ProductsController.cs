@@ -50,7 +50,7 @@ namespace ProjectTesting.Controllers
                     c.totalCartPrice = (qty * p.productPrice);
                     c.categoryId = p.categoryId;
                     c.timeStamp = DateTime.UtcNow;
-                    c.userName = "Adeeb";
+                    c.userName = User.Identity.Name;
                     c.productQuantity = qty;
                     _context.carts.Add(c);
                     _context.SaveChanges();
