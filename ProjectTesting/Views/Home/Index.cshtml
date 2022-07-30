@@ -94,9 +94,9 @@
 <div class="row product-container">
     @foreach (var item in Model)
     {
-        <div class="card col-md-4 col-sm-3 col-xs-6 shadow-lg p-3 mb-3 bg-light rounded-3" style="width:16rem; margin-right:8px">
+        <div class="card col-md-4 col-sm-3 col-xs-6 shadow-lg p-3 mb-3 bg-light rounded-3" style="width:18.7rem; margin-right:8px">
             <div class="thumbnail product-item zoom" style="max-width:540px">
-                <img src="~/Images/@item.imageURL" class="card-img-top" style="width:125px; height:139px;" alt="">
+                <img src="~/Images/@item.imageURL" class="card-img-top" style="width:200px; height:80px;" alt="">
                 <div class="content">
                     <hr/>
                     <h6>@item.productName</h6>
@@ -107,7 +107,7 @@
                                    <i class="fa-solid fa-file-circle-info"></i>
                                  </a>
                                  <a class="btn btn-secondary btn-sm text-white" asp-controller="Products" asp-action="GetCategories" asp-route-id="@item.id">
-                                     <i class="fa-solid fa-cart-arrow-down"></i>
+                                     <i class="fa-solid fa-cart"></i>
                                  </a>
                             </div>
                         </div>
