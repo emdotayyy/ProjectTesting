@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProjectTesting.Data;
-using ProjectTesting.Helper;
 using ProjectTesting.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,8 +20,8 @@ builder.Services.AddSession();
 
 var app = builder.Build();
 
-Stripe.StripeConfiguration.SetApiKey("pk_test_51LRA7qSB35RrtZsgugNGSkiNIVwvVizKByJALcSh3BbKMj4aoaDnMYN08uZEpogvNZxmKzfO0wIt9ln1WywmhjNS00WBC1e9Dx");
 
+Stripe.StripeConfiguration.SetApiKey("pk_test_51LRA7qSB35RrtZsgugNGSkiNIVwvVizKByJALcSh3BbKMj4aoaDnMYN08uZEpogvNZxmKzfO0wIt9ln1WywmhjNS00WBC1e9Dx");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

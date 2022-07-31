@@ -18,9 +18,12 @@ namespace ProjectTesting.Controllers
         public string TotalAmount { get; set; }
         public IActionResult Index()
         {
-            var clist = SessionHelper.GetObjectFromJson<List<Cart>>(HttpContext.Session, "cart");
-            ViewBag.cart = clist;
-            //ViewBag.DollarAmount = clist.Select(item=>item.totalCartPrice);
+            List<Cart> list = _context.carts.ToList();
+            ViewData["Cart"] = list;
+            ViewData["DollarAmount"] = list.Select(e => e.totalCartPrice);
+            //var clist = SessionHelper.GetObjectFromJson<List<Cart>>(HttpContext.Session, "carts");
+            //ViewBag.cart = clist;
+            //ViewBag.DollarAmount = clist.Select(item => item.totalCartPrice);
             //ViewBag.total = Math.Round(ViewBag.DollarAmount, 2) * 100;
             //ViewBag.total = Convert.ToInt32(ViewBag.DollarAmount);
             int? total = ViewBag.total;
