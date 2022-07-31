@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿ using Microsoft.AspNetCore.Mvc;
 using ProjectTesting.Data;
 using ProjectTesting.Helper;
 using ProjectTesting.Models;
@@ -26,8 +26,8 @@ namespace ProjectTesting.Controllers
             //ViewBag.DollarAmount = clist.Select(item => item.totalCartPrice);
             //ViewBag.total = Math.Round(ViewBag.DollarAmount, 2) * 100;
             //ViewBag.total = Convert.ToInt32(ViewBag.DollarAmount);
-            //int total = Convert.ToInt32(ViewBag.DollarAmount);
-            TotalAmount = Convert.ToString(ViewData["DollarAmount"]);
+            int? total = ViewBag.total;
+            TotalAmount = total.ToString();
             return View();
         }
         [HttpPost]

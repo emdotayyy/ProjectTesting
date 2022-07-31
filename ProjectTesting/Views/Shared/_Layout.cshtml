@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProjectTesting.styles.css" asp-append-version="true" />
+   
+
     <style>
         .navbar-nav.navbar-center{
             position:absolute;
@@ -30,7 +32,7 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Categories" asp-action="Dashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">About us</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Products" asp-action="GetCategories">Categories</a>
@@ -69,12 +71,65 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - ProjectTesting - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    @*Footer*@
+<footer class="bd-footer py-4 py-md-5 mt-5 bg-dark">
+  <div class="container py-4 py-md-5 px-4 px-md-3">
+    <div class="row">
+      <div class="col-lg-3 mb-3">
+       <span class="fs-2 text-light ">A-Mart</span>
+       
+        <ul class="list-unstyled small text-muted">
+          <li class="mb-2">Designed and built with all the love in the world by the <a href="#">.Net Batch 1 Team-3</a>.</li>
+          <li class="mb-2">Code licensed <a href="#" target="_blank" rel="license noopener">A-MART</a>, Team <a href="#" target="_blank" rel="license noopener">CC BY 3.0</a>.</li>
+          <li class="mb-2">Currently v5.2.0.</li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2 offset-lg-1 mb-3 text-light">
+        <h5>Links</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">Home</li>
+          <li class="mb-2">Dashboard</li>
+          <li class="mb-2">Categories</li>
+          <li class="mb-2">Cart</li>
+          <li class="mb-2">Admin</li>
+          
+        </ul>
+      </div>
+      
+        
+      <div class="col-6 col-lg-2 mb-3 text-light">
+        <h5>Technologies Used</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">ASP.Net</li>
+          <li class="mb-2">C#</li>
+          <li class="mb-2">HTML/CSS</li>
+          <li class="mb-2">Javascript</li>
+          <li class="mb-2">Bootstrap</li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2 mb-3 text-light">
+        <h5>Group Members</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">Anshika</li>
+          <li class="mb-2">Adeeb</li>
+          <li class="mb-2">Aditya</li>
+          <li class="mb-2">Aniket</li>
+          <li class="mb-2">Aryan</li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2 mb-3">
+       <span class="fs-5 text-light ">Reach us</span>
+       
+        <ul class="list-unstyled small text-muted">
+          <li class="mb-2">We Work From Home</li>
+          <li class="mb-2">Bye Bye</li>
+          <li class="mb-2">Currently v5.2.0.</li>
+        </ul>
+      </div>
+      
+    </div>
+  </div>
+</footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
