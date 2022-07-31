@@ -8,11 +8,11 @@
 <div class="text-center">
     <form asp-action="Processing" asp-controller="Checkout" method="post">
         <article>
-            <label>Amount: $ @ViewBag.DollarAmount</label>
+            <label>Amount: $ @ViewBag.TotalAmount</label>
         </article>
         <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                 data-key="@Stripe.Value.SecretKey"
-                data-amount="@ViewBag.Total"
+                data-amount=".@ViewBag.Total"
                 data-name="[Devaducate]"
                 data-desciption="Buying Product(s)"
                 data-image="https://stripe.com/img/documantation/checkout/marketplace.png"
