@@ -202,8 +202,10 @@ namespace ProjectTesting.Controllers
                 return Problem("Entity set 'ApplicationDbContext.products'  is null.");
             }
             var product = await _context.products.FindAsync(id);
+            var inventory=await _context.inventories.FirstOrDefaultAsync(x => x.productId == id);
             if (product != null)
             {
+                _context.inventories.Remove(inventory);
                 _context.products.Remove(product);
             }
             
