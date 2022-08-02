@@ -8,8 +8,8 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <div class="col-md-8 border border-info rounded">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="productName" class="control-label"></label>
@@ -21,9 +21,11 @@
                 <input asp-for="productDesc" class="form-control" />
                 <span asp-validation-for="productDesc" class="text-danger"></span>
             </div>
-            <div class="form-group">
+             <div class="form-group">
                 <label asp-for="categoryId" class="control-label"></label>
-                <select asp-for="categoryId" class ="form-control" asp-items="ViewBag.categoryId"></select>
+                <select asp-for="categoryId" class="form-control" asp-items="ViewBag.categoryId">
+                    <option disabled selected>--Select Category--</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="productPrice" class="control-label"></label>
@@ -40,11 +42,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="imageURL" class="control-label"></label>
-                <input asp-for="imageURL" class="form-control" type="file"/>
-                <span asp-validation-for="imageURL" class="text-danger"></span>
+                <input asp-for="imageURL" class="form-control" id="uploadBox" name="image" type="file"/>
+                
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-outline-success" />
+                <input type="submit" value="Create" onclick="return ValidateInput()" class="btn btn-outline-success" />
             </div>
         </form>
     </div>
@@ -58,4 +60,24 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        tinymce.init({
+      selector: 'textarea',
+      plugins: 'advlist autolink lists link charmap print preview hr anchor pagebreak',
+      toolbar_mode: 'floating',
+    });
+
+        function ValidateInput() {
+            if (document.getElementById("uploadBox").value== "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please upload an Image!'
+
+                });
+                return false;
+            }
+            return true
+        }
+    </script>
 }

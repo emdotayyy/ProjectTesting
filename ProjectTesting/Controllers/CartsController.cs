@@ -157,5 +157,19 @@ namespace ProjectTesting.Controllers
         {
           return (_context.carts?.Any(e => e.id == id)).GetValueOrDefault();
         }
+
+        //public async Task<IActionResult> AssignProducts(int id) {
+        //    Product products=_context.products.FirstOrDefault(p => p.id == id);
+        //    if (CartExists(id)) {
+
+        //    } else {
+        //        Cart cart = new Cart() {
+                    
+        //        };
+        //        _context.carts.Add(products);
+        //    }
+
+        //    return View(_context.products.Where(e => e.categoryId == id).ToList());
+        //}
     }
 }
