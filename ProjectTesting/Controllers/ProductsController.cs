@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectTesting.Data;
 using ProjectTesting.Models;
+using ProjectTesting.ViewModel;
 
 namespace ProjectTesting.Controllers
 {
@@ -16,12 +17,14 @@ namespace ProjectTesting.Controllers
     {
         private readonly ApplicationDbContext _context;
         public Microsoft.AspNetCore.Hosting.IHostingEnvironment _env;
+        public IWebHostEnvironment _hostEnvironment;
 
-        public ProductsController(ApplicationDbContext context, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
-        {
+        public ProductsController(ApplicationDbContext context, Microsoft.AspNetCore.Hosting.IHostingEnvironment env, IWebHostEnvironment hostEnvironment) {
             _context = context;
             _env = env;
+            _hostEnvironment = hostEnvironment;
         }
+
 
         // GET: Products
         public async Task<IActionResult> Index()
@@ -81,6 +84,14 @@ namespace ProjectTesting.Controllers
             return View(product);
         }
 
+        public IActionResult DetailsV2(int id) {
+            ShoppingCart cartObj = new() {
+                Count = 1,
+                Product = _context.products.Include(p => p.category).FirstOrDefault(m => m.id == id),
+            };
+            return View(cartObj);
+        }
+
         // GET: Products/Create
         public IActionResult Create()
         {
@@ -89,17 +100,22 @@ namespace ProjectTesting.Controllers
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,productName,productDesc,categoryId,productPrice,imageURL,check")] Product product, IFormFile image)
         {
-            if (image != null)
-            {
-                var name = Path.Combine(_env.WebRootPath + "/Images", Path.GetFileName(image.FileName));
-                await image.CopyToAsync(new FileStream(name, FileMode.Create));
-                product.imageURL = "Images/" + image.FileName;
+           
+            string wwwRootPath = _hostEnvironment.WebRootPath; //gets the location of wwwroot folder
+            if (image != null) {
+                string fileName = image.FileName; //Globally Unique Identifier
+                var uploads = Path.Combine(wwwRootPath, @"Images");
+                var extension = Path.GetExtension(image.FileName);
+
+                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName), FileMode.Create)) {
+                    image.CopyTo(fileStreams);
+                }
+                product.imageURL = fileName;
+
             }
             _context.Add(product);
             int reOrderLevel = int.Parse(Request.Form["reOrderLevel"].ToString());
@@ -144,20 +160,35 @@ namespace ProjectTesting.Controllers
         }
 
         // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,productName,productDesc,categoryId,productPrice,imageURL,check")] Product product)
+        public async Task<IActionResult> Edit(int id, Product product,IFormFile image)
         {
+            string wwwRootPath = _hostEnvironment.WebRootPath; //gets the location of wwwroot folder
             if (id != product.id)
             {
                 return NotFound();
             }
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+            try {
+                if (image != null) {
+
+                    //string fileName = image.FileName; //Globally Unique Identifier
+                    //var uploads = Path.Combine(wwwRootPath, @"Images"); wwwRoot/Images
+                    //string oldImageName = _context.products.FirstOrDefault(p => p.id == id).imageURL.ToString(); shoes.jpeg
+                    //string oldImage = Path.Combine(uploads, oldImageName); wwwRoot/Images/shoes.jpeg
+                    //System.IO.File.Delete(oldImage);
+
+                    string fileName = image.FileName; //Globally Unique Identifier
+                    var uploads = Path.Combine(wwwRootPath, @"Images");
+                    var extension = Path.GetExtension(image.FileName);
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName), FileMode.Create)) {
+                        image.CopyTo(fileStreams);
+                    }
+                    product.imageURL = fileName;
+
+                }
+                _context.Update(product);
+                await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -170,7 +201,7 @@ namespace ProjectTesting.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Edit));
         }
 
         // GET: Products/Delete/5
@@ -203,8 +234,13 @@ namespace ProjectTesting.Controllers
             }
             var product = await _context.products.FindAsync(id);
             var inventory=await _context.inventories.FirstOrDefaultAsync(x => x.productId == id);
+            
             if (product != null)
             {
+                if (_context.carts.Any(x=>x.productId==id)) {
+                    var carts =  _context.carts.FirstOrDefault(x => x.productId == id);
+                    _context.carts.Remove(carts);
+                }
                 _context.inventories.Remove(inventory);
                 _context.products.Remove(product);
             }

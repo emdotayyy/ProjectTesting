@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectTesting.Data;
 using ProjectTesting.Models;
+using ProjectTesting.ViewModel;
 using System.Diagnostics;
 
 namespace ProjectTesting.Controllers
@@ -35,5 +37,6 @@ namespace ProjectTesting.Controllers
         {
             return View();
         }
+        
     }
 }

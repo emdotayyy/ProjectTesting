@@ -110,16 +110,21 @@
                 <img src="~/Images/@item.imageURL" class="card-img-top" style="width:200px; height:130px;" alt="">
                 <div class="content">
                     <hr />
-                    <h6>@item.productName</h6>
+                    <div>
+                    <p class="card-title h5 text-primary">@item.productName</p>
+                    </div>
+                    <div>
+                        <p>Price: <b>₹@item.productPrice.ToString("0.00")</b></p>
+                    </div>
                     <div class="col-md-12">
                         <div class="card-footer">
                             <div class="card-text">
-                                <a class="btn btn-outline-dark btn-sm" asp-controller="Products" asp-action="Details" asp-route-id="@item.id">
+                                <a class="btn btn-outline-dark btn-lg" asp-controller="Products" asp-action="DetailsV2" asp-route-id="@item.id">
                                     <i class="fa-solid fa-file-circle-info">Info</i>
                                 </a>
-                                <a class="btn btn-secondary btn-sm text-white" asp-controller="Products" asp-action="GetCategories" asp-route-id="@item.id">
+                                @*<a class="btn btn-secondary btn-sm text-white" asp-controller="Products" asp-action="GetCategories" asp-route-id="@item.id">
                                     <i class="fa-solid">Cart</i>
-                                </a>
+                                </a>*@
                             </div>
                         </div>
                     </div>
