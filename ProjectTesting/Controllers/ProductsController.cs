@@ -107,7 +107,7 @@ namespace ProjectTesting.Controllers
            
             string wwwRootPath = _hostEnvironment.WebRootPath; //gets the location of wwwroot folder
             if (image != null) {
-                string fileName = image.FileName; //Globally Unique Identifier
+                string fileName = image.FileName;
                 var uploads = Path.Combine(wwwRootPath, @"Images");
                 var extension = Path.GetExtension(image.FileName);
 
